@@ -17,6 +17,7 @@ EVENT_DATE = "Saturday, May 22th 2026"
 EVENT_LOCATION = "Events on Pine, 140 Pine Ave, 3rd Floor, Downtown Long Beach, CA 90802"
 REGISTRATION_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSe8bNOUAhyMWEeTIrmzuxnOP11IybEpifDKTPSOON0iJHupdA/viewform?usp=publish-editor"
 SUBJECT = f"You're Accepted to the {DATATHON_NAME}! 🎉"
+LOGO_PATH = "imgs/Ai_Logo.png"
 
 # Load recipients
 with open("users.txt") as f:
@@ -91,7 +92,23 @@ The {DATATHON_NAME} Team
 
   <br><br>
   <p>We look forward to seeing you there!</p>
-  <p>Best regards,<br><strong>The AI Club CSULB Team</strong></p>
+
+  <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+
+  <!-- Logo section -->
+  <table style="width: 100%; text-align: center;">
+    <tr>
+      <td>
+        <img src="cid:club_logo" alt="AI Club CSULB" style="width: 150px; margin: 10px auto;">
+        <p style="color: #888; font-size: 13px; margin: 4px 0;">
+          <strong>The AI Club CSULB Team</strong>
+        </p>
+        <p style="color: #aaa; font-size: 12px; margin: 2px 0;">
+          California State University, Long Beach
+        </p>
+      </td>
+    </tr>
+  </table>
 
 </body>
 </html>
@@ -107,6 +124,11 @@ The {DATATHON_NAME} Team
         img.add_header("Content-ID", "<new_flyer>")
         img.add_header("Content-Disposition", "inline")
         msg.attach(img)
+    with open(LOGO_PATH, "rb") as logo_file:
+        logo = MIMEImage(logo_file.read())
+        logo.add_header("Content-ID", "<club_logo>")
+        logo.add_header("Content-Disposition", "inline")
+        msg.attach(logo)
     return msg
 
 # Send emails
